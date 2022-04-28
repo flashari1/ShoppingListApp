@@ -7,9 +7,6 @@ def user_info():
 
     # def user_input():
     # Directly send the user input to verify_input() for error catching/verifying input
-    '''user_command = verify_input(input('I would like to:\n-->'))
-    # make the following steps more efficient
-    if user_command ==  'add':'''
 
 
 def receive_verify_forward_input(shopping_list):
@@ -53,47 +50,27 @@ def add_to_list(shopping_list):
     elif item == 'done':
         print("DEBUG#4: Reaching this point")
         return shopping_list
-    elif len(shopping_list) <= 0 or not len(shopping_list) > 1:
+    elif len(shopping_list) == 0:
+        print("DEBUG#4.1: Reaching this point")
         shopping_list.append([item, quantity])
         main.print_list(shopping_list)
         add_to_list(shopping_list)
     else:
-        print("DEBUG#4.1: Reaching this point")
         for i in shopping_list:
-            print("DEBUG#4.1.1: Reaching this point")
-            if item in shopping_list[shopping_list.index(i)]:
-                print("DEBUG#4.2: Reaching this point")
-                for element in shopping_list:
-                    print("DEBUG#4.3: Reaching this point")
-                    print("Element0: {}".format(element))
-                    print("Element printed each loop: {}".format(element))
-                    if element[0] == item:
-                        # TODO recode this to accommodate the change in a list instead of tuple
-                        print("Element0 #2: {}".format(element[0]))
-                        # Change the tuple to list to make editable
-                        #item0 = list(shopping_list[shopping_list.index(element)])
-                        print("DEBUG#8: Reaching this point")
-                        # increment the quantity
-                        item0[1] += 1
-                        print("DEBUG#9: Reaching this point")
-                        # change back to tuple
-                        item0 = tuple(item0)
-                        # Find the index of the original element which was to be changed
-                        # replace it with the new tuple with updated quantity
-                        # shopping_list.insert(shopping_list.index(element), item0)
-                        shopping_list[shopping_list.index(element)] = item0
-                        print("DEBUG#10: Reaching this point")
-                        main.print_list(shopping_list)
-                        print("DEBUG#11: Reaching this point")
-                        print("DEBUG#12: Reaching this point")
-                    else:
-                        print("DEBUG#12.1: Reaching this point")
+            print("DEBUG#4.2: Reaching this point")
+            if item in i:
+                print("DEBUG#4.3: Reaching this point")
+                # TODO recode this to accommodate the change in a list instead of tuple
+                # increment the quantity
+                shopping_list[shopping_list.index(i)][1] += 1
+                main.print_list(shopping_list)
+                break
+                #add_to_list(shopping_list)
             else:
-                print("DEBUG#13: Reaching this point")
-                print("DEBUG#14: Reaching this point")
+                print("DEBUG#4.4: Reaching this point")
                 shopping_list.append([item, quantity])
                 main.print_list(shopping_list)
-                add_to_list(shopping_list)
+    add_to_list(shopping_list)
 
 
 def remove_from_list(shopping_list):
