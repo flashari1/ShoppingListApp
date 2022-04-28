@@ -84,6 +84,7 @@ def add_to_list(shopping_list):
                     else:
                         print("DEBUG#12.1: Reaching this point")
                         pass
+
             else:
                 print("DEBUG#13: Reaching this point")
                 print("DEBUG#14: Reaching this point")
