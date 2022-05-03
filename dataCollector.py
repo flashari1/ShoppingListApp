@@ -16,7 +16,7 @@ def receive_verify_forward_input(shopping_list):
         # verify input
         user_command = input('I would like to:\n-->')
         if user_command not in accepted_commands:
-            raise ValueError('That command is not supported :(\nPlease try again or type "help"')
+            raise ValueError('That command is not supported :(\nPlease try again or type "help"'.upper())
     except ValueError as err:
         print(err)
         # raise exception
@@ -64,7 +64,6 @@ def add_to_list(shopping_list):
             if item == shopping_list[counter][0]:
                 print("DEBUG#4.3: Reaching this point")
                 # increment the quantity
-                # TODO: error detected - the instance of add_to_list called from here keeps the new
                 shopping_list[counter][1] += 1
                 add_to_list(shopping_list)
                 break
@@ -76,6 +75,8 @@ def add_to_list(shopping_list):
 
 
 def remove_from_list(shopping_list):
+    # Start by printing the list back to user
+    main.print_list(shopping_list)
     # remove the item from the list
     print("Please 'done' once you're done removing items")
     item = input("Item name:\n-->")
@@ -84,15 +85,17 @@ def remove_from_list(shopping_list):
     elif item == 'done':
         return shopping_list
     elif len(shopping_list) <= 0:
-        print("Oops! your list is already empty")
+        print("Oops! your list is already empty".upper())
         return shopping_list
     else:
-        for i in shopping_list:
-            if item in shopping_list[shopping_list.index(i)]:
-                shopping_list.remove(i)
-                main.print_list(shopping_list)
+        counter = 0
+        while counter < len(shopping_list):
+            if item == shopping_list[counter][0]:
+                # remove item from list
+                del shopping_list[counter]
                 remove_from_list(shopping_list)
-            else:
-                print("That item is not in your list, please try again")
-                main.print_list(shopping_list)
-                remove_from_list(shopping_list)
+                break
+            counter += 1
+        else:
+            print("That item is not in your list, please try again".upper())
+            remove_from_list(shopping_list)
