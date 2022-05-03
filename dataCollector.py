@@ -51,7 +51,7 @@ def add_to_list(shopping_list):
         # print("DEBUG#3: Reaching this point")
         main.exit_application(shopping_list)
     elif item == 'done':
-        #TODO fix this
+        # TODO: fix this
         print("DEBUG#4: Reaching this point")
         return shopping_list
     elif len(shopping_list) == 0:
@@ -59,13 +59,16 @@ def add_to_list(shopping_list):
         shopping_list.append([item, quantity])
         add_to_list(shopping_list)
     else:
-        for i in shopping_list:
-            if item == i[0]:
+        counter = 0
+        while counter < len(shopping_list):
+            if item == shopping_list[counter][0]:
                 print("DEBUG#4.3: Reaching this point")
                 # increment the quantity
                 # TODO: error detected - the instance of add_to_list called from here keeps the new
-                shopping_list[shopping_list.index(i)][1] += 1
+                shopping_list[counter][1] += 1
                 add_to_list(shopping_list)
+                break
+            counter += 1
         else:
             print("DEBUG#4.4: Reaching this point")
             shopping_list.append([item, quantity])
