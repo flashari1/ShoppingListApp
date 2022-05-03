@@ -26,17 +26,20 @@ def receive_verify_forward_input(shopping_list):
         if user_command == 'add':
             add_to_list(shopping_list)
         elif user_command == 'remove':
-            remove_from_list(shopping_list)
+            shopping_list = remove_from_list(shopping_list)
         elif user_command == 'view':
             main.print_list(shopping_list)
         elif user_command == 'delete all':
             shopping_list.clear()
         elif user_command == 'exit':
             main.exit_application(shopping_list)
+        else:
+            return shopping_list
 
 
 def add_to_list(shopping_list):
-
+    # start by printing list back to user
+    main.print_list(shopping_list)
     # add the item to the list
     print("Please type 'done' once you're done adding items")
     item = input("(retyping a previous item will increase the quantity)\nItem name:\n-->")
@@ -45,32 +48,28 @@ def add_to_list(shopping_list):
     quantity = 1
     print("DEBUG#2: Reaching this point")
     if item == 'exit':
-        print("DEBUG#3: Reaching this point")
+        # print("DEBUG#3: Reaching this point")
         main.exit_application(shopping_list)
     elif item == 'done':
+        #TODO fix this
         print("DEBUG#4: Reaching this point")
         return shopping_list
     elif len(shopping_list) == 0:
         print("DEBUG#4.1: Reaching this point")
         shopping_list.append([item, quantity])
-        main.print_list(shopping_list)
         add_to_list(shopping_list)
     else:
         for i in shopping_list:
-            print("DEBUG#4.2: Reaching this point")
-            if item in i:
+            if item == i[0]:
                 print("DEBUG#4.3: Reaching this point")
-                # TODO recode this to accommodate the change in a list instead of tuple
                 # increment the quantity
+                # TODO: error detected - the instance of add_to_list called from here keeps the new
                 shopping_list[shopping_list.index(i)][1] += 1
-                main.print_list(shopping_list)
-                break
-                #add_to_list(shopping_list)
-            else:
-                print("DEBUG#4.4: Reaching this point")
-                shopping_list.append([item, quantity])
-                main.print_list(shopping_list)
-    add_to_list(shopping_list)
+                add_to_list(shopping_list)
+        else:
+            print("DEBUG#4.4: Reaching this point")
+            shopping_list.append([item, quantity])
+            add_to_list(shopping_list)
 
 
 def remove_from_list(shopping_list):
