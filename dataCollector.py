@@ -1,4 +1,5 @@
-import main
+# import main
+import dataProcessor
 
 
 def user_info():
@@ -11,7 +12,6 @@ def user_info():
 
 def receive_verify_forward_input(shopping_list):
     accepted_commands = ['add', 'remove', 'delete all', 'help', 'exit', 'view']
-
     try:
         # verify input
         user_command = input('I would like to:\n-->')
@@ -26,20 +26,21 @@ def receive_verify_forward_input(shopping_list):
         if user_command == 'add':
             add_to_list(shopping_list)
         elif user_command == 'remove':
-            shopping_list = remove_from_list(shopping_list)
+            remove_from_list(shopping_list)
         elif user_command == 'view':
-            main.print_list(shopping_list)
+            print(f"{'THIS CALL IF FROM THE VIEW FUNCTION'}")
+            # main.print_list(shopping_list)
         elif user_command == 'delete all':
             shopping_list.clear()
         elif user_command == 'exit':
-            main.exit_application(shopping_list)
+            '''main.exit_application(shopping_list)'''
         else:
             return shopping_list
 
 
 def add_to_list(shopping_list):
     # start by printing list back to user
-    main.print_list(shopping_list)
+    # main.print_list(shopping_list)
     # add the item to the list
     print("Please type 'done' once you're done adding items")
     item = input("(retyping a previous item will increase the quantity)\nItem name:\n-->")
@@ -48,12 +49,12 @@ def add_to_list(shopping_list):
     quantity = 1
     print("DEBUG#2: Reaching this point")
     if item == 'exit':
-        # print("DEBUG#3: Reaching this point")
-        main.exit_application(shopping_list)
+        print("DEBUG#3: Reaching this point")
+        # main.exit_application(shopping_list)
     elif item == 'done':
         # TODO: fix this
         print("DEBUG#4: Reaching this point")
-        return shopping_list
+        return None
     elif len(shopping_list) == 0:
         print("DEBUG#4.1: Reaching this point")
         shopping_list.append([item, quantity])
@@ -76,12 +77,13 @@ def add_to_list(shopping_list):
 
 def remove_from_list(shopping_list):
     # Start by printing the list back to user
-    main.print_list(shopping_list)
+    # main.print_list(shopping_list)
     # remove the item from the list
     print("Please 'done' once you're done removing items")
     item = input("Item name:\n-->")
     if item == 'exit':
-        main.exit_application()
+        print()
+        dataProcessor.exit_application()
     elif item == 'done':
         return shopping_list
     elif len(shopping_list) <= 0:
@@ -99,3 +101,4 @@ def remove_from_list(shopping_list):
         else:
             print("That item is not in your list, please try again".upper())
             remove_from_list(shopping_list)
+

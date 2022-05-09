@@ -20,10 +20,12 @@ def print_list(shopping_list):
     [print("{}. {}".format(count+1, value)) for count, value in enumerate(shopping_list)]
 
 
-def exit_application(shopping_list):
-    del shopping_list
-    print("List cleared")
-    sys.exit('Application closed')
+def print_list2(shopping_list):
+    print(f"{'THIS PRINT CALL IS FROM MAIN'}")
+    [print("{}. {}".format(count+1, value)) for count, value in enumerate(shopping_list)]
+
+
+
 
 
 def main():
@@ -44,7 +46,7 @@ def main():
         # initiate the dataCollector method
         dataCollector.receive_verify_forward_input(shopping_list)
         # Receive the shopping list back and print for the user
-        print_list(shopping_list)
+        print_list2(shopping_list)
         # Repeat above
 
 
