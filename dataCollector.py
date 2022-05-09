@@ -28,19 +28,19 @@ def receive_verify_forward_input(shopping_list):
         elif user_command == 'remove':
             remove_from_list(shopping_list)
         elif user_command == 'view':
-            print(f"{'THIS CALL IF FROM THE VIEW FUNCTION'}")
-            # main.print_list(shopping_list)
+            print(f"{'THIS CALL IS FROM THE VIEW FUNCTION'}")
+            dataProcessor.print_list(shopping_list)
         elif user_command == 'delete all':
             shopping_list.clear()
         elif user_command == 'exit':
-            '''main.exit_application(shopping_list)'''
+            dataProcessor.exit_application(shopping_list)
         else:
             return shopping_list
 
 
 def add_to_list(shopping_list):
     # start by printing list back to user
-    # main.print_list(shopping_list)
+    dataProcessor.print_list(shopping_list)
     # add the item to the list
     print("Please type 'done' once you're done adding items")
     item = input("(retyping a previous item will increase the quantity)\nItem name:\n-->")
@@ -50,34 +50,38 @@ def add_to_list(shopping_list):
     print("DEBUG#2: Reaching this point")
     if item == 'exit':
         print("DEBUG#3: Reaching this point")
-        # main.exit_application(shopping_list)
+        dataProcessor.exit_application(shopping_list)
     elif item == 'done':
-        # TODO: fix this
-        print("DEBUG#4: Reaching this point")
-        return None
+        # As the same list instance is being mutated, nothing here needs to be returned
+        return
     elif len(shopping_list) == 0:
-        print("DEBUG#4.1: Reaching this point")
-        shopping_list.append([item, quantity])
+        # Add new item including keys 'item' and 'quantity'
+        shopping_list.append({'item':item, 'quantity':quantity})
         add_to_list(shopping_list)
     else:
+        # counter to track the index through the list
         counter = 0
         while counter < len(shopping_list):
-            if item == shopping_list[counter][0]:
+            # if shoppinglist [index]['item' key] matches the item entered by the user
+            if shopping_list[counter]['item'] == item:
                 print("DEBUG#4.3: Reaching this point")
-                # increment the quantity
-                shopping_list[counter][1] += 1
+                # then find the 'quantity' key in the same indexed dictionary and increment the quantity
+                shopping_list[counter]['quantity'] += 1
+                # re-run the add_to_list method
                 add_to_list(shopping_list)
                 break
             counter += 1
         else:
             print("DEBUG#4.4: Reaching this point")
-            shopping_list.append([item, quantity])
+            # Add a new dictionary list with keys 'item' and 'quantity'. Associate the item with 'item' key
+            # associate amount with the 'quantity' key
+            shopping_list.append({'item':item, 'quantity':quantity})
             add_to_list(shopping_list)
 
 
 def remove_from_list(shopping_list):
     # Start by printing the list back to user
-    # main.print_list(shopping_list)
+    dataProcessor.print_list(shopping_list)
     # remove the item from the list
     print("Please 'done' once you're done removing items")
     item = input("Item name:\n-->")
@@ -88,11 +92,11 @@ def remove_from_list(shopping_list):
         return shopping_list
     elif len(shopping_list) <= 0:
         print("Oops! your list is already empty".upper())
-        return shopping_list
+        return
     else:
         counter = 0
         while counter < len(shopping_list):
-            if item == shopping_list[counter][0]:
+            if item == shopping_list[counter]['item']:
                 # remove item from list
                 del shopping_list[counter]
                 remove_from_list(shopping_list)

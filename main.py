@@ -16,13 +16,13 @@ def print_greeting(name):
     print('Hello {}!. You can type "help" at anytime to see command options'.format(name))
 
 
-def print_list(shopping_list):
-    [print("{}. {}".format(count+1, value)) for count, value in enumerate(shopping_list)]
+
 
 
 def print_list2(shopping_list):
     print(f"{'THIS PRINT CALL IS FROM MAIN'}")
-    [print("{}. {}".format(count+1, value)) for count, value in enumerate(shopping_list)]
+    for count, value in enumerate(shopping_list):
+        print(f"{count+1}. {value['item']} x{value['quantity']}")
 
 
 
