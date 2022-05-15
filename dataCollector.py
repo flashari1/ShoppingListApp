@@ -1,6 +1,8 @@
 # import main
 import dataProcessor
 
+#TODO break down multi-use functions into simpler functions
+#TODO utiltise DRY programming!
 
 def user_info():
     name = input('Please enter your name:\n-->').capitalize()

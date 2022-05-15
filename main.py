@@ -25,7 +25,7 @@ def print_list2(shopping_list):
         print(f"{count+1}. {value['item']} x{value['quantity']}")
 
 
-
+# TODO learn more about functional programming and change this code accordingly
 
 
 def main():
